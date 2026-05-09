@@ -13,11 +13,17 @@ function getSmtpConfig() {
   if (provider === 'gmail') {
     return {
       host: process.env.SMTP_HOST || 'smtp.gmail.com',
-      port: parseInt(process.env.SMTP_PORT || '587', 10),
-      secure: parseInt(process.env.SMTP_PORT || '587', 10) === 465,
+      port: parseInt(process.env.SMTP_PORT || '465', 10),
+      secure: parseInt(process.env.SMTP_PORT || '465', 10) === 465,
       auth: process.env.SMTP_USER
         ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-        : undefined
+        : undefined,
+      tls: {
+        rejectUnauthorized: false
+      },
+      connectionTimeout: 15000,
+      greetingTimeout: 15000,
+      socketTimeout: 15000
     };
   }
 
@@ -25,11 +31,17 @@ function getSmtpConfig() {
 
   return {
     host: process.env.SMTP_HOST,
-    port: parseInt(process.env.SMTP_PORT || '587', 10),
-    secure: parseInt(process.env.SMTP_PORT || '587', 10) === 465,
+    port: parseInt(process.env.SMTP_PORT || '465', 10),
+    secure: parseInt(process.env.SMTP_PORT || '465', 10) === 465,
     auth: process.env.SMTP_USER
       ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-      : undefined
+      : undefined,
+    tls: {
+      rejectUnauthorized: false
+    },
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 15000
   };
 }
 
